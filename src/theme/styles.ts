@@ -1,6 +1,6 @@
 import { mode } from "@chakra-ui/theme-tools";
 
-import { IGlobalStyleProps } from "../IGlobalStylesProps";
+import { IGlobalStyleProps } from "../types/IGlobalStylesProps";
 
 const styles = {
   global: (props: IGlobalStyleProps) => ({
