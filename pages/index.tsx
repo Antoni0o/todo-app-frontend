@@ -1,11 +1,13 @@
 import { Box, Button, Center, FormControl, Grid, GridItem, Heading, Input, Link, useColorMode, useStyleConfig, Wrap } from '@chakra-ui/react';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { FaArrowRight } from 'react-icons/fa';
 
 import { ThemeSwitcher } from '../src/components/ThemeSwitcher';
 
 const Home: NextPage = () => {
   const { colorMode } = useColorMode();
+  const router = useRouter();
 
   return (
     <Center
@@ -108,6 +110,7 @@ const Home: NextPage = () => {
                   </Button>
                   <Link
                     marginTop="0.4em"
+                    onClick={() => router.push('/sign-in')}
                   >
                     Or Sign Up
                   </Link>
