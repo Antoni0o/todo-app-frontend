@@ -5,8 +5,8 @@ import { IGlobalStyleProps } from "../IGlobalStylesProps";
 const styles = {
   global: (props: IGlobalStyleProps) => ({
     body: {
-      color: mode('dark.400', 'light.200')(props),
-      bg: mode('light.400', 'dark.400')(props),
+      color: mode('blue.100', 'light.200')(props),
+      bg: mode('light.400', 'blue.100')(props),
     },
   }),
 };

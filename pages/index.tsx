@@ -1,32 +1,64 @@
-import { Box, Button, ButtonGroup, Center, color, Flex, FormControl, Grid, GridItem, Heading, Image, Input, Link, Text, useColorMode, useStyleConfig } from '@chakra-ui/react';
+import { Box, Button, Center, FormControl, Grid, GridItem, Heading, Input, Link, useColorMode, useStyleConfig, Wrap } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import { FaArrowRight } from 'react-icons/fa';
 
 import { ThemeSwitcher } from '../src/components/ThemeSwitcher';
-import { IGlobalStyleProps } from '../src/IGlobalStylesProps';
 
 const Home: NextPage = () => {
   const { colorMode } = useColorMode();
 
   return (
-    <Center h='100vh'>
-      <Box 
+    <Center
+      overflowY={{
+        xl: 'hidden',
+        base: 'scroll'
+      }}
+      w='100%'
+      h={{
+        xl: '100vh',
+        md: '100vh',
+        base: '100%'
+      }}
+    >
+      <Box
+        marginTop={{
+          xl: '0',
+          md: '0',
+          base: '2em'
+        }}
+        marginBottom={{
+          xl: '0',
+          md: '0',
+          base: '2em'
+        }}
         width={{
-          base: '80%',
+          base: '90%',
           md: '90%',
           xl: '60%'
         }}
         height={{
-          base: '90%',
-          md: '50%',
-          xl: '70%'
+          xl: '450px',
+          md: '380px',
+          base: '750px'
         }}
         borderWidth='1px'
         borderRadius='lg'
         boxShadow= {colorMode === 'light' ? '0 0 4px 2px #efdfde' : ''}
       >
-        <Flex>
-          <Box w="50%">
+        <Grid
+          h='100%'
+          gridTemplateColumns={{
+            xl: '50% 50%',
+            md: '40% 60%',
+            base: '100%'
+          }}
+          gridTemplateRows={{
+            xl: '100%',
+            md: '100%',
+            base: '55% 45%'
+          }}
+        >
+          <GridItem>
             <Box marginLeft='0.4em'>
               <ThemeSwitcher />
             </Box>
@@ -47,7 +79,7 @@ const Home: NextPage = () => {
                     marginTop='2em'
                     placeholder='Username'
                     _focus={{
-                      borderColor: colorMode === 'dark' ? 'light.300' : 'dark.300'
+                      borderColor: colorMode === 'dark' ? 'light.300' : 'blue.100'
                     }}  
                   />
                   <Input 
@@ -56,7 +88,7 @@ const Home: NextPage = () => {
                     width= '80%'
                     marginTop = '1em'
                     _focus={{
-                      borderColor: colorMode === 'dark' ? 'light.300' : 'dark.300'
+                      borderColor: colorMode === 'dark' ? 'light.300' : 'blue.100'
                     }}  
                   />
                   <Button
@@ -64,11 +96,11 @@ const Home: NextPage = () => {
                     variant='outline'
                     marginTop='1em'
                     width='80%'
-                    borderColor={colorMode === 'dark' ? 'light.100' : 'dark.300'}
-                    color={colorMode === 'dark' ? 'light.100' : 'dark.300'}
+                    borderColor={colorMode === 'dark' ? 'light.100' : 'blue.100'}
+                    color={colorMode === 'dark' ? 'light.100' : 'blue.100'}
                     _hover={{
-                      bg: colorMode === 'dark' ? 'light.100' : 'dark.300',
-                      color: colorMode === 'dark' ? 'dark.300' : 'light.100'
+                      bg: colorMode === 'dark' ? 'light.100' : 'blue.100',
+                      color: colorMode === 'dark' ? 'blue.100' : 'light.100'
                     }}
                     rightIcon={<FaArrowRight />}
                   >
@@ -81,11 +113,29 @@ const Home: NextPage = () => {
                   </Link>
               </Center>
             </FormControl>
-          </Box>
-          <Box>
-            <Image></Image>
-          </Box>
-        </Flex>
+          </GridItem>
+          <GridItem
+            bgImage="url('https://i.pinimg.com/originals/9c/e5/46/9ce546b1c53891e2980bce2358a6256e.jpg')"
+            bgRepeat='no-repeat'
+            bgPosition='center'
+            bgSize='cover'
+            borderLeftRadius={{
+              xl: '5%',
+              md: '5%'
+            }}
+            borderRightRadius={{
+              xl: 'lg',
+              md: 'lg'
+            }}
+            borderTopRadius={{
+              base: '5%'
+            }}
+            borderBottomRadius={{
+              base: 'lg'
+            }}
+          >
+          </GridItem>
+        </Grid>
       </Box>
     </Center>
   )
