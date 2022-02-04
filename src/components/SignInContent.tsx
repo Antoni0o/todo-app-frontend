@@ -1,16 +1,23 @@
-import { Box, Link, Button, Center, FormControl, GridItem, Heading, Input, useColorMode } from "@chakra-ui/react";
+import axios from "axios";
+import { Box, Link, Button, Center, GridItem, Heading, Input, useColorMode } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 import { RegisterBox } from "./RegisterBox";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 
-const LoginContent = () => {
+const SignInContent = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const { colorMode } = useColorMode();
   const router = useRouter();
 
   return (
-    <RegisterBox>
+    <RegisterBox
+      height="420px"
+    >
       <GridItem>
         <Box marginLeft='0.4em'>
           <ThemeSwitcher />
@@ -21,16 +28,31 @@ const LoginContent = () => {
           fontWeight='bold'
           fontSize='6xl'
         >
-          Login
+          Sign In
         </Heading>
-        <FormControl>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            axios.post('http://localhost:4000/user/login', {
+              email,
+              password
+            })
+            router.push('/')
+          }}
+        >
           <Center
             flexDirection='column'
           >
             <Input
+              placeholder='Email'
+              type='email'
+              value={email}
+              onChange={(e) => {
+                const { value } = e.target;
+                setEmail(value);
+              }}
               width='80%'
               marginTop='2em'
-              placeholder='Username'
               _focus={{
                 borderColor: colorMode === 'dark' ? 'light.300' : 'blue.100'
               }}
@@ -38,6 +60,11 @@ const LoginContent = () => {
             <Input
               placeholder='Password'
               type='password'
+              value={password}
+              onChange={(e) => {
+                const { value } = e.target;
+                setPassword(value);
+              }}
               width='80%'
               marginTop='1em'
               _focus={{
@@ -57,40 +84,19 @@ const LoginContent = () => {
               }}
               rightIcon={<FaArrowRight />}
             >
-              Login
+              Sign In
             </Button>
             <Link
               marginTop="0.4em"
-              onClick={() => router.push('/sign-in')}
+              onClick={() => router.push('/sign-up')}
             >
               Or Sign Up
             </Link>
           </Center>
-        </FormControl>
-      </GridItem>
-      <GridItem
-        bgImage="url('https://i.pinimg.com/originals/9c/e5/46/9ce546b1c53891e2980bce2358a6256e.jpg')"
-        bgRepeat='no-repeat'
-        bgPosition='center'
-        bgSize='cover'
-        borderLeftRadius={{
-          xl: '5%',
-          md: '5%'
-        }}
-        borderRightRadius={{
-          xl: 'lg',
-          md: 'lg'
-        }}
-        borderTopRadius={{
-          base: '5%'
-        }}
-        borderBottomRadius={{
-          base: 'lg'
-        }}
-      >
+        </form>
       </GridItem>
     </RegisterBox>
   )
 };
 
-export { LoginContent };
+export { SignInContent };

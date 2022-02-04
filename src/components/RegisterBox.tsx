@@ -1,8 +1,8 @@
-import { Box, Center, Grid, useColorMode } from "@chakra-ui/react";
+import { Box, Center, Grid, GridItem, useColorMode } from "@chakra-ui/react";
 
 import AuxProps from "../types/AuxProps";
 
-const RegisterBox = ({ children }: AuxProps ) => {
+const RegisterBox = ({ children, height }: AuxProps ) => {
   const { colorMode } = useColorMode();
 
   return (
@@ -36,7 +36,7 @@ const RegisterBox = ({ children }: AuxProps ) => {
         }}
         height={{
           xl: '450px',
-          md: '380px',
+          md: '400px',
           base: '750px'
         }}
         borderWidth='1px'
@@ -46,8 +46,8 @@ const RegisterBox = ({ children }: AuxProps ) => {
         <Grid
           h='100%'
           gridTemplateColumns={{
-            xl: '50% 50%',
-            md: '40% 60%',
+            xl: '40% 60%',
+            md: '45% 55%',
             base: '100%'
           }}
           gridTemplateRows={{
@@ -57,6 +57,27 @@ const RegisterBox = ({ children }: AuxProps ) => {
           }}
         >
           {children}
+          <GridItem
+            bgImage="url('https://i.pinimg.com/originals/9c/e5/46/9ce546b1c53891e2980bce2358a6256e.jpg')"
+            bgRepeat='no-repeat'
+            bgPosition='center'
+            bgSize='cover'
+            borderLeftRadius={{
+              xl: '5%',
+              md: '5%'
+            }}
+            borderRightRadius={{
+              xl: 'lg',
+              md: 'lg'
+            }}
+            borderTopRadius={{
+              base: '5%'
+            }}
+            borderBottomRadius={{
+              base: 'lg'
+            }}
+          >
+          </GridItem>
         </Grid>
       </Box>
     </Center>
