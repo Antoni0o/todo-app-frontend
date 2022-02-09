@@ -55,7 +55,9 @@ const SignUpContent = () => {
               }, 1000)
             })
             .catch((err) => {
-              setIsLoading(false);
+              setTimeout(() => {
+                setIsLoading(false);
+              }, 1000);
 
               setError(err.response.data.message);
             });
