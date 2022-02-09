@@ -51,6 +51,8 @@ export function AuthProvider(props: AuxProps) {
     api.defaults.headers.common.authorization = `Bearer ${token}`;
 
     setUser(user);
+
+    router.push('/home');
   }
 
   function signOut() {

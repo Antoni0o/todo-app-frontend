@@ -37,11 +37,13 @@ const SignUpContent = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+
             api.post('/user/', {
               name: username,
               email,
               password
-            })
+            });
+
             router.push('/')
           }}
         >

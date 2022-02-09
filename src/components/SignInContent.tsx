@@ -39,10 +39,8 @@ const SignInContent = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            
-            handleSignIn(email, password);
 
-            router.push('/home');
+            handleSignIn(email, password);
           }}
         >
           <Center
