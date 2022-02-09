@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { Box, Button, Center, GridItem, Heading, Input, Link, useColorMode } from "@chakra-ui/react";
+import { Box, Text, Button, Center, GridItem, Heading, Input, Link, useColorMode } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { FaArrowRight } from "react-icons/fa";
 
@@ -9,6 +8,8 @@ import { useState } from 'react';
 import { api } from '../api';
 
 const SignUpContent = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,20 +37,44 @@ const SignUpContent = () => {
         </Heading>
         <form
           onSubmit={(e) => {
+            setIsLoading(true);
             e.preventDefault();
 
             api.post('/user/', {
               name: username,
               email,
               password
+            })
+            .then(() => {
+              setTimeout(() => {
+                if(error) {
+                  setError('');
+                }
+  
+                router.push('/');
+              }, 1000)
+            })
+            .catch((err) => {
+              setIsLoading(false);
+
+              setError(err.response.data.message);
             });
 
-            router.push('/')
           }}
         >
           <Center
             flexDirection='column'
           >
+            {error &&
+              <Text
+                fontSize='12px'
+                color='danger.300'
+                marginBottom='-1.6rem'
+                marginTop='0.6rem'
+              >
+                {error}
+              </Text>
+            }
             <Input
               placeholder='Username'
               value={username}
@@ -92,6 +117,7 @@ const SignUpContent = () => {
               }}
             />
             <Button
+              isLoading={isLoading}
               type='submit'
               variant='outline'
               marginTop='1em'

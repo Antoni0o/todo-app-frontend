@@ -1,4 +1,4 @@
-import { Button, Text } from '@chakra-ui/react';
+import { Button, Image, Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import { useAuth } from '../src/hooks/useAuth';
 
@@ -13,6 +13,9 @@ const SignUp: NextPage = () => {
   return (
     <>
       <Text>home</Text>
+      {user &&
+        <Image alt='user profile' src={user.avatar_url} />
+      }
       <Button 
       onClick={(e) => {
         e.preventDefault();

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Box, Link, Button, Center, GridItem, Heading, Input, useColorMode } from "@chakra-ui/react";
+import { Box, Link, Button, Center, GridItem, Heading, Input, useColorMode, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
@@ -9,7 +9,8 @@ import { ThemeSwitcher } from "./ThemeSwitcher";
 import { useAuth } from "../hooks/useAuth";
 
 const SignInContent = () => {
-  const { signIn } = useAuth();
+  const { signIn, error } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -38,14 +39,29 @@ const SignInContent = () => {
         </Heading>
         <form
           onSubmit={(e) => {
+            setIsLoading(true);
             e.preventDefault();
 
             handleSignIn(email, password);
+
+            setTimeout(() => {
+              setIsLoading(false);
+            }, 1000);
           }}
         >
           <Center
             flexDirection='column'
           >
+            {error &&
+              <Text 
+                fontSize='12px'
+                color='danger.300'
+                marginBottom='-1.6rem'
+                marginTop='0.6rem'
+              >
+                {error}
+              </Text>
+            }
             <Input
               placeholder='Email'
               type='email'
@@ -75,6 +91,7 @@ const SignInContent = () => {
               }}
             />
             <Button
+              isLoading={isLoading}
               type='submit'
               variant='outline'
               marginTop='1em'

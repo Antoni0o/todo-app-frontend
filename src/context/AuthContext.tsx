@@ -16,6 +16,7 @@ type User = {
 type AuthContextData = {
   signed: boolean;
   user: User | null;
+  error: string | null;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => void;
 }
@@ -37,22 +38,27 @@ export const AuthContext = createContext({} as AuthContextData);
 export function AuthProvider(props: AuxProps) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   async function signIn(email: string, password: string) {
-    const response = await api.post<AuthResponse>('/user/login', {
+    await api.post<AuthResponse>('/user/login', {
       email,
       password
+    })
+    .then((res) => {
+      const { user, token } = res.data.authentication;
+
+      localStorage.setItem('@todoapp:token', token);
+
+      api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+      setUser(user);
+
+      router.push('/home');
+    })
+    .catch((err) => {
+      setError(err.response.data.message);
     });
-
-    const { user, token } = response.data.authentication;
-
-    localStorage.setItem('@todoapp:token', token);
-
-    api.defaults.headers.common.authorization = `Bearer ${token}`;
-
-    setUser(user);
-
-    router.push('/home');
   }
 
   function signOut() {
@@ -76,7 +82,7 @@ export function AuthProvider(props: AuxProps) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signed: Boolean(user), user, signIn, signOut }}>
+    <AuthContext.Provider value={{ signed: Boolean(user), user, error, signIn, signOut }}>
       {props.children}
     </AuthContext.Provider>
   )
