@@ -6,13 +6,19 @@ import { FaArrowRight } from "react-icons/fa";
 
 import { RegisterBox } from "./RegisterBox";
 import { ThemeSwitcher } from "./ThemeSwitcher";
+import { useAuth } from "../hooks/useAuth";
 
 const SignInContent = () => {
+  const { signIn } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const { colorMode } = useColorMode();
   const router = useRouter();
+
+  function handleSignIn(email: string, password: string) {
+    signIn(email, password);
+  }
 
   return (
     <RegisterBox
@@ -33,11 +39,10 @@ const SignInContent = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            axios.post('http://localhost:4000/user/login', {
-              email,
-              password
-            })
-            router.push('/')
+            
+            handleSignIn(email, password);
+
+            router.push('/home');
           }}
         >
           <Center

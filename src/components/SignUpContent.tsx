@@ -6,6 +6,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { RegisterBox } from "./RegisterBox";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { useState } from 'react';
+import { api } from '../api';
 
 const SignUpContent = () => {
   const [username, setUsername] = useState('');
@@ -36,7 +37,7 @@ const SignUpContent = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            axios.post('http://localhost:4000/user/', {
+            api.post('/user/', {
               name: username,
               email,
               password
