@@ -2,7 +2,7 @@ import { Box, Center, Grid, GridItem, useColorMode } from "@chakra-ui/react";
 
 import AuxProps from "../types/AuxProps";
 
-const RegisterBox = ({ children, height }: AuxProps ) => {
+const RegisterBox = ({ children }: AuxProps ) => {
   const { colorMode } = useColorMode();
 
   return (

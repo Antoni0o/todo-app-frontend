@@ -1,10 +1,11 @@
 import { Button, Image, Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
+import { useEffect } from 'react';
+import { Navbar } from '../src/components/Navbar';
 import { useAuth } from '../src/hooks/useAuth';
 
 const SignUp: NextPage = () => {
-  const { user, signOut } = useAuth();
-  console.log(user)
+  const { signed, user, signOut } = useAuth();
 
   function handleSignOut() {
     signOut();
@@ -12,15 +13,7 @@ const SignUp: NextPage = () => {
 
   return (
     <>
-      <Text>home</Text>
-      {user &&
-        <Image alt='user profile' src={user.avatar_url} />
-      }
-      <Button 
-      onClick={(e) => {
-        e.preventDefault();
-        handleSignOut();
-      }}>Logout</Button>
+      <Navbar user={user}/>
     </>
   )
 };

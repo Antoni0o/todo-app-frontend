@@ -3,19 +3,11 @@ import { createContext, useEffect, useState } from "react";
 
 import { api } from "../api";
 import AuxProps from "../types/AuxProps";
-
-type User = {
-  id: string;
-  name: string;
-  email: string;
-  avatar_url: string;
-  created_at?: Date; 
-  todos?: string[]
-}
+import { User } from "../types/User";
 
 type AuthContextData = {
   signed: boolean;
-  user: User | null;
+  user: User;
   error: string | null;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => void;
@@ -36,8 +28,14 @@ type AuthResponse = {
 export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider(props: AuxProps) {
+  const defaultUser = {
+    id: '',
+    name: '',
+    email: '',
+    avatar_url: '',
+  }
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User>(defaultUser);
   const [error, setError] = useState<string | null>(null);
 
   async function signIn(email: string, password: string) {
@@ -62,7 +60,7 @@ export function AuthProvider(props: AuxProps) {
   }
 
   function signOut() {
-    setUser(null);
+    setUser(defaultUser);
 
     localStorage.removeItem('@todoapp:token');
 
