@@ -7,7 +7,7 @@ import { User } from "../types/User";
 
 type AuthContextData = {
   signed: boolean;
-  user: User;
+  user: User | null;
   error: string | null;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => void;
@@ -28,14 +28,8 @@ type AuthResponse = {
 export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider(props: AuxProps) {
-  const defaultUser = {
-    id: '',
-    name: '',
-    email: '',
-    avatar_url: '',
-  }
   const router = useRouter();
-  const [user, setUser] = useState<User>(defaultUser);
+  const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function signIn(email: string, password: string) {
@@ -60,11 +54,11 @@ export function AuthProvider(props: AuxProps) {
   }
 
   function signOut() {
-    setUser(defaultUser);
+    router.push('/');
+
+    setUser(null);
 
     localStorage.removeItem('@todoapp:token');
-
-    router.push('/');
   }
 
   useEffect(() => {

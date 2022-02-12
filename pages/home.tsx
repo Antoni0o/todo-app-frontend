@@ -1,21 +1,28 @@
 import { Button, Image, Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
-import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { Navbar } from '../src/components/Navbar';
 import { useAuth } from '../src/hooks/useAuth';
 
-const SignUp: NextPage = () => {
-  const { signed, user, signOut } = useAuth();
+const HomePage: NextPage = () => {
+  const { user } = useAuth();
+  const router = useRouter();
 
-  function handleSignOut() {
-    signOut();
-  }
+  useEffect(() => {
+    if(!user?.id) {
+      router.push('/404');
+    }
+  }, [])
 
   return (
     <>
-      <Navbar user={user}/>
+      {user?.id &&
+        <Navbar user={user} />
+      }
     </>
-  )
+  );
+
 };
 
-export default SignUp;
+export default HomePage;

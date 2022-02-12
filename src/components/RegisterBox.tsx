@@ -58,7 +58,7 @@ const RegisterBox = ({ children }: AuxProps ) => {
         >
           {children}
           <GridItem
-            bgImage="url('https://i.pinimg.com/originals/9c/e5/46/9ce546b1c53891e2980bce2358a6256e.jpg')"
+            bgImage="url('https://m.media-amazon.com/images/I/61hb4rC7b0L._AC_SL1500_.jpg')"
             bgRepeat='no-repeat'
             bgPosition='center'
             bgSize='cover'

@@ -46,6 +46,9 @@ const Navbar = ({user}: INavbarProps) => {
         >
           <DrawerCloseButton 
             marginTop='10px'
+            _focus={{
+              outline: 'none'
+            }}
           />
           <Flex
             margin='10px 20px' 
