@@ -19,10 +19,12 @@ const Navbar = ({user}: INavbarProps) => {
 
   return (
     <Flex
-      margin='10px 20px' 
+      padding='10px 20px' 
       justifyContent='end'
       alignItems='center'
       gap='10px'
+      borderBottom='1px solid'
+      borderBottomColor='dark.300'
     >
       <ThemeSwitcher />
       <Avatar 

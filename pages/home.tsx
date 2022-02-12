@@ -2,6 +2,7 @@ import { Button, Image, Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { HomeBody } from '../src/components/HomeBody';
 import { Navbar } from '../src/components/Navbar';
 import { useAuth } from '../src/hooks/useAuth';
 
@@ -18,7 +19,10 @@ const HomePage: NextPage = () => {
   return (
     <>
       {user?.id &&
-        <Navbar user={user} />
+        <>
+          <Navbar user={user} />
+          <HomeBody />
+        </>
       }
     </>
   );
