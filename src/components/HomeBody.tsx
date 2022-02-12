@@ -8,8 +8,8 @@ const HomeBody = () => {
       width='100%'
       flexDirection='column'
       padding={{
-        lg: '2rem 5rem',
-        md: '2rem 5rem',
+        lg: '1rem 5rem',
+        md: '1rem 5rem',
         base: '2rem'
       }}
       overflow='hidden'
